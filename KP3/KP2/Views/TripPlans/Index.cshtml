@@ -1,0 +1,57 @@
+﻿@model IEnumerable<KP2.Models.TripPlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Управление рейсами</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Дата
+        </th>
+        <th>
+            Номер автобуса
+        </th>
+        <th>
+            Название рейса
+        </th>
+        <th>
+            Водитель
+        </th>
+        <th>
+            Кондуктор
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buss.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trip.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users.login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Users1.login)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Просмотреть", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

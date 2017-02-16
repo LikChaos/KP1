@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Users";
+}
+
+    <table>
+        <tr>
+            <td>@Html.ActionLink("Управление автобусами", "Index", "Busses")</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("Управление рейсами", "Index", "Trips")</td>
+        </tr>
+        <tr>
+            <td>@Html.ActionLink("Планирование рейсов", "Index", "TripPlans")</td>
+        </tr>
+    </table>
+    <br/>
+    <table>
+        <tr>
+            <td>@Html.ActionLink("Управление пользователями", "Index", "Users")</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td>@Html.ActionLink("Просмотр своих рейсов", "Index", "Worker")</td>
+        </tr>
+    </table>

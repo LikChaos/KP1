@@ -1,0 +1,58 @@
+﻿@model KP2.Models.TripPlan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Просмотр</h2>
+
+<div>
+    <h4>Управление рейсами</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Buss.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Buss.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trip.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trip.name)
+        </dd>
+
+        <dt>
+            Водитель
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.login)
+        </dd>
+
+        <dt>
+            Кондуктор
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users1.login)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Вернуться", "Index")
+</p>

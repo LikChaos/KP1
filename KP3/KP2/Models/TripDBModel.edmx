@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TripDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="State" Type="int" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Plan" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TripPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_trip" Type="int" Nullable="false" />
+          <Property Name="Id_driver" Type="int" Nullable="false" />
+          <Property Name="Id_worker" Type="int" Nullable="false" />
+          <Property Name="Id_buss" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="role" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_TripPlan_To_Buss">
+          <End Role="Buss" Type="Self.Buss" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buss">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_buss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Trip">
+          <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_trip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Users_Driver">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_driver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Users_Worker">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TripDBModelContainer">
+          <EntitySet Name="Buss" EntityType="Self.Buss" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trip" EntityType="Self.Trip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TripPlan" EntityType="Self.TripPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TripPlan_To_Buss" Association="Self.FK_TripPlan_To_Buss">
+            <End Role="Buss" EntitySet="Buss" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Trip" Association="Self.FK_TripPlan_To_Trip">
+            <End Role="Trip" EntitySet="Trip" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Users_Driver" Association="Self.FK_TripPlan_To_Users_Driver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Users_Worker" Association="Self.FK_TripPlan_To_Users_Worker">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TripDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Buss">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="Int32" />
+          <NavigationProperty Name="TripPlan" Relationship="Self.FK_TripPlan_To_Buss" FromRole="Buss" ToRole="TripPlan" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Plan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TripPlan" Relationship="Self.FK_TripPlan_To_Trip" FromRole="Trip" ToRole="TripPlan" />
+        </EntityType>
+        <EntityType Name="TripPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_trip" Type="Int32" Nullable="false" />
+          <Property Name="Id_driver" Type="Int32" Nullable="false" />
+          <Property Name="Id_worker" Type="Int32" Nullable="false" />
+          <Property Name="Id_buss" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Buss" Relationship="Self.FK_TripPlan_To_Buss" FromRole="TripPlan" ToRole="Buss" />
+          <NavigationProperty Name="Trip" Relationship="Self.FK_TripPlan_To_Trip" FromRole="TripPlan" ToRole="Trip" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_TripPlan_To_Users_Driver" FromRole="TripPlan" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_TripPlan_To_Users_Worker" FromRole="TripPlan" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TripPlan" Relationship="Self.FK_TripPlan_To_Users_Driver" FromRole="Users" ToRole="TripPlan" />
+          <NavigationProperty Name="TripPlan1" Relationship="Self.FK_TripPlan_To_Users_Worker" FromRole="Users" ToRole="TripPlan" />
+        </EntityType>
+        <Association Name="FK_TripPlan_To_Buss">
+          <End Role="Buss" Type="Self.Buss" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buss">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_buss" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Trip">
+          <End Role="Trip" Type="Self.Trip" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_trip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Users_Driver">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_driver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripPlan_To_Users_Worker">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="TripPlan" Type="Self.TripPlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripPlan">
+              <PropertyRef Name="Id_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TripDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buss" EntityType="Self.Buss" />
+          <EntitySet Name="Trip" EntityType="Self.Trip" />
+          <EntitySet Name="TripPlan" EntityType="Self.TripPlan" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_TripPlan_To_Buss" Association="Self.FK_TripPlan_To_Buss">
+            <End Role="Buss" EntitySet="Buss" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Trip" Association="Self.FK_TripPlan_To_Trip">
+            <End Role="Trip" EntitySet="Trip" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Users_Driver" Association="Self.FK_TripPlan_To_Users_Driver">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripPlan_To_Users_Worker" Association="Self.FK_TripPlan_To_Users_Worker">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TripPlan" EntitySet="TripPlan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TripDBModelContainer" CdmEntityContainer="TripDBEntities1">
+          <EntitySetMapping Name="Buss">
+            <EntityTypeMapping TypeName="TripDBModel.Buss">
+              <MappingFragment StoreEntitySet="Buss">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trip">
+            <EntityTypeMapping TypeName="TripDBModel.Trip">
+              <MappingFragment StoreEntitySet="Trip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Plan" ColumnName="Plan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripPlan">
+            <EntityTypeMapping TypeName="TripDBModel.TripPlan">
+              <MappingFragment StoreEntitySet="TripPlan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Id_trip" ColumnName="Id_trip" />
+                <ScalarProperty Name="Id_driver" ColumnName="Id_driver" />
+                <ScalarProperty Name="Id_worker" ColumnName="Id_worker" />
+                <ScalarProperty Name="Id_buss" ColumnName="Id_buss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TripDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
